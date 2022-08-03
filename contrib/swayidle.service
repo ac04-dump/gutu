@@ -1,0 +1,14 @@
+# any string
+Name: swayidle
+# command to run
+Command: swayidle
+# arguments
+Args: ["timeout", "300", "screenlock --monitors-off", "resume", "swaymsg 'output * dpms on'"]
+# how often (in seconds) to re-run (0 means never)
+Interval: 0
+# restart if crashes (true / false)
+KeepAlive: true
+# when to start ("wayland", "x11", "always", "never"=disabled)
+When: "wayland"
+# start after n seconds
+Delay: 5
