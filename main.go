@@ -17,6 +17,15 @@ func main() {
 
 	log.SetOutput(f)
 
+	oldPid := GetPidByName("gutu")
+	if oldPid != 0 {
+		proc, err := os.FindProcess(oldPid)
+		if err == nil && oldPid != os.Getpid() {
+			log.Println("[INFO] [_main] Killing old instance")
+			proc.Kill()
+		}
+	}
+
 	log.Println("[INFO] [_main] Loading and starting services")
 	var wg sync.WaitGroup
 

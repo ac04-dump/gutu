@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/alexcoder04/friendly"
 )
@@ -26,15 +27,15 @@ func DesktopRunning() bool {
 	if dispServer == "wayland" {
 		display := os.Getenv("WAYLAND_DISPLAY")
 		if display == "" {
-			display = "1"
+			return false
 		}
 		uid := os.Getuid()
-		waySock := fmt.Sprintf("/run/user/%d/wayland-%s", uid, display)
+		waySock := fmt.Sprintf("/run/user/%d/%s", uid, display)
 		return friendly.IsFile(waySock)
 	}
-	display := os.Getenv("DISPLAY")
+	display := strings.Replace(os.Getenv("DISPLAY"), ":", "", 1)
 	if display == "" {
-		display = "0"
+		return false
 	}
 	x11Sock := fmt.Sprintf("/tmp/.X11-unix/X%s", display)
 	return friendly.IsFile(x11Sock)

@@ -121,6 +121,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 		command.Stdout = mw
 		command.Stderr = mw
 
+		log.Printf("[INFO] [%s] Starting", s.Name)
 		err := command.Start()
 		if err != nil {
 			log.Printf("[WARN] [%s] Failed to start, retrying in %ds\n", s.Name, s.RetryNumber)
@@ -128,7 +129,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 		}
 		err = command.Wait()
 		if err != nil {
-			log.Printf("[WARN] [%s] Error waiting for command to finish, restarting in %ds\n", s.Name, s.RetryNumber)
+			log.Printf("[WARN] [%s] Error waiting for command to finish (%s), restarting in %ds\n", s.Name, err.Error(), s.RetryNumber)
 			time.Sleep(time.Duration(s.Interval) * time.Second)
 		}
 
