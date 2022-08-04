@@ -1,0 +1,11 @@
+# your name for the service
+Name: compositor
+Command: picom
+Args: ["--experimental-backends"]
+# restart if fails, at most 3 times
+KeepAlive: true
+RetryNumber: 3
+# start only on Xorg
+When: x11
+# kill picom instances that are still running
+KillOld: true

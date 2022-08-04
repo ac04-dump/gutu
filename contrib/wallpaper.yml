@@ -1,0 +1,9 @@
+# wallpaper setter script
+Name: wallpaper
+Command: wallpaper-select
+Args: ["--random"]
+KeepAlive: false
+# run every 10 minutes
+Interval: 600
+When: always
+Delay: 2
