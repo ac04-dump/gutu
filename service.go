@@ -88,7 +88,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	if s.Delay > 0 {
-		Logger.WithField("service", s.Name).Infof("Delaying by %ds\n", s.Delay)
+		Logger.WithField("service", s.Name).Infof("Delaying by %ds", s.Delay)
 		time.Sleep(time.Duration(s.Delay) * time.Second)
 	}
 
@@ -128,7 +128,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 		}
 		err = command.Wait()
 		if err != nil {
-			Logger.WithField("service", s.Name).Warn("Error waiting for command to finish (%s), restarting in %ds\n", err.Error(), s.RetryNumber)
+			Logger.WithField("service", s.Name).Warnf("Error waiting for command to finish (%s), restarting in %ds\n", err.Error(), s.RetryNumber)
 			time.Sleep(time.Duration(s.Interval) * time.Second)
 		}
 
@@ -142,7 +142,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 			return
 		}
 
-		Logger.WithField("service", s.Name).Info("Restarting in %ds", s.Interval)
+		Logger.WithField("service", s.Name).Infof("Restarting in %ds", s.Interval)
 		time.Sleep(time.Duration(s.Interval) * time.Second)
 	}
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"io"
 	"os"
 	"sync"
 
@@ -18,26 +17,10 @@ var (
 	Logger       *logrus.Logger
 )
 
-func GetLogWriter() io.Writer {
-	f, err := os.OpenFile(GetLogFile(), os.O_WRONLY|os.O_CREATE, 0600)
-	if err != nil {
-		panic("Cannot open log file")
-	}
-	return f
-}
-
 func main() {
 	flag.Parse()
 
-	Logger = &logrus.Logger{
-		Out:   GetLogWriter(),
-		Level: logrus.DebugLevel,
-		Formatter: &logrus.TextFormatter{
-			DisableColors:   true,
-			TimestampFormat: "2006-01-02 15:04:05",
-			FullTimestamp:   true,
-		},
-	}
+	InitLogger()
 
 	if !linux.GuiRunning() {
 		Logger.WithField("service", "_main").Fatal("Desktop not running")
