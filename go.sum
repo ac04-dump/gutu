@@ -1,5 +1,7 @@
 github.com/alexcoder04/friendly v0.1.0 h1:t2ev7MFqgzc1uP0gXgTglVozgCwGswokg4X4mxXuw9A=
 github.com/alexcoder04/friendly v0.1.0/go.mod h1:mHI5Rm6HB+Jjd69RYJ9/9c7J1qCtfyBvoJPSIm0yslo=
+github.com/mitchellh/go-ps v1.0.0 h1:i6ampVEEF4wQFF+bkYfwYgY+F/uYJDktmvLPf7qIgjc=
+github.com/mitchellh/go-ps v1.0.0/go.mod h1:J4lOc8z8yJs6vUwklHw2XEIiT4z4C40KtWVN3nvg8Pg=
 github.com/otiai10/copy v1.7.0 h1:hVoPiN+t+7d2nzzwMiDHPSOogsWAStewq3TwU05+clE=
 github.com/otiai10/copy v1.7.0/go.mod h1:rmRl6QPdJj6EiUqXQ/4Nn2lLXoNQjFCQbbNrxgc/t3U=
 github.com/otiai10/curr v0.0.0-20150429015615-9b4961190c95/go.mod h1:9qAhocn7zKJG+0mI8eUu6xqkFDYS2kb2saOteoSB3cE=
