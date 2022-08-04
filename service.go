@@ -10,6 +10,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/alexcoder04/friendly/linux"
 	"github.com/mitchellh/go-ps"
 	"gopkg.in/yaml.v3"
 )
@@ -59,7 +60,7 @@ func GetServices() []Service {
 			Logger.WithField("service", s.Name).Info("Disabled, skipping")
 			continue
 		}
-		if s.When != GetDispServer() && s.When != "always" {
+		if s.When != linux.GetDisplayServer() && s.When != "always" {
 			Logger.WithField("service", s.Name).Info("Disabled on this display server, skipping")
 			continue
 		}
@@ -131,7 +132,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 			time.Sleep(time.Duration(s.Interval) * time.Second)
 		}
 
-		if !DesktopRunning() {
+		if !linux.GuiRunning() {
 			Logger.WithField("service", s.Name).Warn("Desktop seems to be shut down, stopping")
 			return
 		}

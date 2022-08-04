@@ -2,34 +2,30 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"path"
 	"time"
+
+	"github.com/alexcoder04/friendly"
 )
 
-// runs before main
-func GetConfigDir() string {
-	userConfigDir, err := os.UserConfigDir()
+// get executed before main() {{{
+func GetConfigFolder() string {
+	dir, err := friendly.GetConfigDir(PROGRAM_NAME)
 	if err != nil {
-		Logger.WithField("service", "_util").Fatalln("[FATL] Cannot get user config dir")
+		panic("Cannot get config folder")
 	}
-	configDir := path.Join(userConfigDir, PROGRAM_NAME)
-	err = os.MkdirAll(configDir, 0700)
-	if err != nil {
-		Logger.WithField("service", "_util").Fatalln("[FATL] Cannot create config dir")
-	}
-	return configDir
+	return dir
 }
 
-// runs before main
-func GetLogDir() string {
-	logDir := path.Join(os.TempDir(), fmt.Sprintf("%s-%d", PROGRAM_NAME, os.Getuid()))
-	err := os.MkdirAll(logDir, 0700)
+func GetLogFolder() string {
+	dir, err := friendly.GetLogDir(PROGRAM_NAME)
 	if err != nil {
-		Logger.WithField("service", "_util").Fatalln("[FATL] Cannot create log dir")
+		panic("Cannot get log folder")
 	}
-	return logDir
+	return dir
 }
+
+// }}}
 
 func GetLogFileForService(name string) string {
 	return path.Join(*LogFolder, fmt.Sprintf("%s-%s.log", name, time.Now().Format("060102-150405")))

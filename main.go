@@ -6,14 +6,15 @@ import (
 	"os"
 	"sync"
 
+	"github.com/alexcoder04/friendly/linux"
 	"github.com/sirupsen/logrus"
 )
 
 const PROGRAM_NAME = "gutu"
 
 var (
-	ConfigFolder = flag.String("config", GetConfigDir(), "config folder")
-	LogFolder    = flag.String("log", GetLogDir(), "log folder")
+	ConfigFolder = flag.String("config", GetConfigFolder(), "config folder")
+	LogFolder    = flag.String("log", GetLogFolder(), "log folder")
 	Logger       *logrus.Logger
 )
 
@@ -27,6 +28,7 @@ func GetLogWriter() io.Writer {
 
 func main() {
 	flag.Parse()
+
 	Logger = &logrus.Logger{
 		Out:   GetLogWriter(),
 		Level: logrus.DebugLevel,
@@ -35,6 +37,10 @@ func main() {
 			TimestampFormat: "2006-01-02 15:04:05",
 			FullTimestamp:   true,
 		},
+	}
+
+	if !linux.GuiRunning() {
+		Logger.WithField("service", "_main").Fatal("Desktop not running")
 	}
 
 	oldPid := GetPidByName("gutu")
