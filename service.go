@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"os/exec"
 	"path"
@@ -28,10 +27,9 @@ type Service struct {
 }
 
 func GetServices() []Service {
-	configDir := GetConfigDir()
-	files, err := ioutil.ReadDir(configDir)
+	files, err := ioutil.ReadDir(*ConfigFolder)
 	if err != nil {
-		log.Fatalln("[FATL] Cannot read contents of config dir")
+		Logger.WithField("service", "_main").Fatalln("Cannot read contents of config dir")
 	}
 
 	services := []Service{}
@@ -43,9 +41,9 @@ func GetServices() []Service {
 		}
 
 		// read file
-		data, err := ioutil.ReadFile(path.Join(configDir, f.Name()))
+		data, err := ioutil.ReadFile(path.Join(*ConfigFolder, f.Name()))
 		if err != nil {
-			log.Printf("[WARN] Cannot read %s, skipping\n", f.Name())
+			Logger.WithField("service", "_main").Warnf("Cannot read %s, skipping\n", f.Name())
 			continue
 		}
 
@@ -53,21 +51,21 @@ func GetServices() []Service {
 		s := Service{}
 		err = yaml.Unmarshal(data, &s)
 		if err != nil {
-			log.Printf("[WARN] [%s] Cannot unmarshal, skipping\n", f.Name())
+			Logger.WithField("service", f.Name()).Warn("Cannot unmarshal, skipping")
 			continue
 		}
 
 		if s.When == "never" {
-			log.Printf("[INFO] [%s] Disabled, skipping\n", s.Name)
+			Logger.WithField("service", s.Name).Info("Disabled, skipping")
 			continue
 		}
 		if s.When != GetDispServer() && s.When != "always" {
-			log.Printf("[INFO] [%s] Disabled on this display server, skipping\n", s.Name)
+			Logger.WithField("service", s.Name).Info("Disabled on this display server, skipping")
 			continue
 		}
 
 		services = append(services, s)
-		log.Printf("[INFO] [%s] Loaded", s.Name)
+		Logger.WithField("service", s.Name).Info("Loaded")
 	}
 	return services
 }
@@ -89,13 +87,13 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 	defer wg.Done()
 
 	if s.Delay > 0 {
-		log.Printf("[INFO] [%s] Delaying by %ds\n", s.Name, s.Delay)
+		Logger.WithField("service", s.Name).Infof("Delaying by %ds\n", s.Delay)
 		time.Sleep(time.Duration(s.Delay) * time.Second)
 	}
 
 	f, err := os.OpenFile(GetLogFileForService(s.Name), os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
-		log.Printf("[WARN] [%s] Failed to open log file, skipping", s.Name)
+		Logger.WithField("service", s.Name).Warn("Failed to open log file, skipping")
 		return
 	}
 
@@ -111,7 +109,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 
 	for i := 0; true; i++ {
 		if i > int(s.RetryNumber) && s.Interval == 0 {
-			log.Printf("[WARN] [%s] Retry number exceeded, stopping\n", s.Name)
+			Logger.WithField("service", s.Name).Warn("Retry number exceeded, stopping")
 			return
 		}
 
@@ -121,29 +119,29 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 		command.Stdout = mw
 		command.Stderr = mw
 
-		log.Printf("[INFO] [%s] Starting", s.Name)
+		Logger.WithField("service", s.Name).Info("Starting")
 		err := command.Start()
 		if err != nil {
-			log.Printf("[WARN] [%s] Failed to start, retrying in %ds\n", s.Name, s.RetryNumber)
+			Logger.WithField("service", s.Name).Warn("Failed to start, retrying in %ds\n", s.RetryNumber)
 			time.Sleep(time.Duration(s.Interval) * time.Second)
 		}
 		err = command.Wait()
 		if err != nil {
-			log.Printf("[WARN] [%s] Error waiting for command to finish (%s), restarting in %ds\n", s.Name, err.Error(), s.RetryNumber)
+			Logger.WithField("service", s.Name).Warn("Error waiting for command to finish (%s), restarting in %ds\n", err.Error(), s.RetryNumber)
 			time.Sleep(time.Duration(s.Interval) * time.Second)
 		}
 
 		if !DesktopRunning() {
-			log.Printf("[WARN] [%s] Desktop seems to be shut down, stopping\n", s.Name)
+			Logger.WithField("service", s.Name).Warn("Desktop seems to be shut down, stopping")
 			return
 		}
 
 		if !s.KeepAlive && s.Interval == 0 {
-			log.Printf("[INFO] [%s] Finished\n", s.Name)
+			Logger.WithField("service", s.Name).Info("Finished")
 			return
 		}
 
-		log.Printf("[INFO] [%s] Restarting in %ds", s.Name, s.Interval)
+		Logger.WithField("service", s.Name).Info("Restarting in %ds", s.Interval)
 		time.Sleep(time.Duration(s.Interval) * time.Second)
 	}
 }
