@@ -110,7 +110,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 	}
 
 	for i := 0; true; i++ {
-		if i > int(s.RetryNumber) {
+		if i > int(s.RetryNumber) && s.Interval == 0 {
 			log.Printf("[WARN] [%s] Retry number exceeded, stopping\n", s.Name)
 			return
 		}
