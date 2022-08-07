@@ -128,7 +128,7 @@ func HandleService(s Service, wg *sync.WaitGroup) {
 		}
 		err = command.Wait()
 		if err != nil {
-			Logger.WithField("service", s.Name).Warnf("Error waiting for command to finish (%s), restarting in %ds\n", err.Error(), s.RetryNumber)
+			Logger.WithField("service", s.Name).Warnf("Error waiting for command to finish (%s), restarting in %ds", err.Error(), s.RetryNumber)
 			time.Sleep(time.Duration(s.Interval) * time.Second)
 		}
 
