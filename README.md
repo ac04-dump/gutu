@@ -9,21 +9,21 @@
 [![Pull requests](https://img.shields.io/github/issues-pr/alexcoder04/gutu)](https://github.com/alexcoder04/gutu/pulls)
 
 `gutu` manages your desktop startup applications. Especially on standalone
-window managers, it can be used to uniform the processes you need to run (e. g.
-notification daemon, keybind handler etc)
+window managers, it can be used to uniform the way you handle the processes you
+need to run (e. g. notification daemon, keybind handler etc)
 
 ## Installation
 
 ### Arch Linux (AUR)
 
-gutu is available on the [AUR](https://aur.archlinux.org/packages/gutu)
+gutu is available on the [AUR](https://aur.archlinux.org/packages/gutu).
 
 ### Prebuild release (all distros, binary only)
 
 Download the binary from [github.com/alexcoder04/gutu/releases/latest](https://github.com/alexcoder04/gutu/releases/latest)
 and copy it to a directory in your `$PATH`.
 
-### Other Distros (Make)
+### Other Distros (build from source)
 
 ```sh
 git clone "https://github.com/alexcoder04/gutu.git"
@@ -70,7 +70,7 @@ Args        # Arguments for the command (["-c", "arg1", "arg2"])
 Interval    # Re-run command periodically in this interval (in seconds, 0=never)
 KeepAlive   # Restart the command if it exits (true/false)
 RetryNumber # How often try to restart the command (if KeepAlive=true)
-When        # wayland/x11/always/never
+When        # "wayland" / "x11" / "always" / "never"
 Delay       # Number of seconds to wait before starting
 KillOld     # Kill running "Command" processes
 ```
