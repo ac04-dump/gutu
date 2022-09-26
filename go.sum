@@ -1,9 +1,5 @@
-github.com/adrg/xdg v0.4.0 h1:RzRqFcjH4nE5C6oTAxhBtoE2IRyjBSa62SCbyPidvls=
-github.com/adrg/xdg v0.4.0/go.mod h1:N6ag73EX4wyxeaoeHctc1mas01KZgsj5tYiAIwqJE/E=
-github.com/alexcoder04/friendly v0.1.0 h1:t2ev7MFqgzc1uP0gXgTglVozgCwGswokg4X4mxXuw9A=
-github.com/alexcoder04/friendly v0.1.0/go.mod h1:mHI5Rm6HB+Jjd69RYJ9/9c7J1qCtfyBvoJPSIm0yslo=
-github.com/alexcoder04/friendly v0.2.0 h1:cr92e/M6ZuUfZkS/MGwHccySzyOzs9DSIHr81UiiH7E=
-github.com/alexcoder04/friendly v0.2.0/go.mod h1:Pljs/AsMn9DL7HNJhL06mXEhNJf9OiM02KBPRXPnheo=
+github.com/alexcoder04/friendly v0.2.1 h1:2f+BP+T2+0gEwpgDrlRIq33MRIHWuFthPy+UzYaAoGg=
+github.com/alexcoder04/friendly v0.2.1/go.mod h1:EJIZyz/OH+OudrVjGY7dt+LEBe4fj8D1veWzTUB2D/w=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -23,7 +19,6 @@ github.com/sirupsen/logrus v1.9.0/go.mod h1:naHLuLoDiP4jHNo9R0sCBMtWGeIprob74mVs
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-golang.org/x/sys v0.0.0-20211025201205-69cdffdb9359/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 h1:0A+M6Uqn+Eje4kHMK80dtF3JCXC4ykBgQG4Fe06QRhQ=
 golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
