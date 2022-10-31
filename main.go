@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/alexcoder04/friendly/linux"
+	"github.com/alexcoder04/friendly/v2/flinux"
 	"github.com/sirupsen/logrus"
 )
 
@@ -22,7 +22,7 @@ func main() {
 
 	InitLogger()
 
-	if !linux.GuiRunning() {
+	if !flinux.GuiRunning() {
 		Logger.WithField("service", "_main").Fatal("Desktop not running")
 	}
 

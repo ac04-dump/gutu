@@ -5,12 +5,12 @@ import (
 	"path"
 	"time"
 
-	"github.com/alexcoder04/friendly"
+	"github.com/alexcoder04/friendly/v2/ffiles"
 )
 
 // get executed before main() {{{
 func GetConfigFolder() string {
-	dir, err := friendly.GetConfigDir(PROGRAM_NAME)
+	dir, err := ffiles.GetConfigDirFor(PROGRAM_NAME)
 	if err != nil {
 		panic("Cannot get config folder")
 	}
@@ -18,7 +18,7 @@ func GetConfigFolder() string {
 }
 
 func GetLogFolder() string {
-	dir, err := friendly.GetLogDir(PROGRAM_NAME)
+	dir, err := ffiles.GetLogDirFor(PROGRAM_NAME)
 	if err != nil {
 		panic("Cannot get log folder")
 	}
